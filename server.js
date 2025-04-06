@@ -1,7 +1,12 @@
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
-const io = require('socket.io')(server);
+const io = require('socket.io')(server, {
+  cors: {
+    origin: ["http://a-malenkaya.ru"],
+    methods: ["GET", "POST"]
+  }
+}););
 app.use(express.static(__dirname));
 
 // Константы игры
@@ -60,4 +65,6 @@ io.on('connection', (socket) => {
     });
 });
 
-server.listen(3000, () => console.log('Server running on http://localhost:3000'));
+server.listen(3000, '0.0.0.0', () => {
+  console.log('Server ready at http://80.87.197.201:3000');
+});
